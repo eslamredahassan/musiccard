@@ -1,0 +1,27 @@
+{
+  "name": "zydenmusiccard",
+  "version": "1.0.0",
+  "description": "Experience your Discord bot's music in a visual format.",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "test": "node example/test"
+  },
+  "files": [
+    "build",
+    "res"
+  ],
+  "keywords": [
+    "ZydenMusic"
+  ],
+  "author": "ZydenMusic",
+  "license": "GNU",
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.44",
+    "color-thief-node": "^1.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "20.5.0",
+    "typescript": "^5.1.6"
+  }
+}
