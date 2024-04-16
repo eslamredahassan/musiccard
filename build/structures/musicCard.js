@@ -1,5 +1,6 @@
 const canvas = require("@napi-rs/canvas");
 const { colorFetch } = require("zydenmusiccard/build/functions/colorFetch");
+const { cropImage } = require("cropify")
 
 // canvas.GlobalFonts.registerFromPath(`build/structures/font/circularstd-black.otf`, "circular-std");
 // canvas.GlobalFonts.registerFromPath(`build/structures/font/notosans-jp-black.ttf`, "noto-sans-jp");
@@ -130,24 +131,20 @@ class musicCard {
             ctx.drawImage(circleCanvas, 10, 255, 1000, 1000);
 
             return image.toBuffer('image/png');
-        } 
-        
-        
-        
-        
-        
-        
+        }
+
         else if (this.theme == 'dynamic') {
             const frame = canvas.createCanvas(3264, 765);
             const ctx = frame.getContext("2d");
 
-            const background = await canvas.loadImage("https://cdn.discordapp.com/attachments/1189116933107359754/1223683781765107733/lund.png?ex=661abf54&is=66084a54&hm=b0e253b4f998bea78bdc8b5972cb10d913f2e7cb51a64ae98f7501bf4ea08a95&nmusi.png");
-            // old
-            // const background = await canvas.loadImage("https://s6.imgcdn.dev/ZDDdt.png");
-            ctx.drawImage(background, 0, 0, frame.width, frame.height);
+            const background = await cropImage({
+                imagePath: this.thumbnail,
+                cropCenter: true,
+                width: 3264,
+                height: 765
+            })
 
-            const thumbnailCanvas = canvas.createCanvas(650, 650);
-            const thumbnailCtx = thumbnailCanvas.getContext('2d');
+            ctx.drawImage(await canvas.loadImage(background), 0, 0, frame.width, frame.height);
 
             let thumbnailImage;
 
@@ -161,37 +158,21 @@ class musicCard {
                 thumbnailImage = canvas.loadImage(`https://s6.imgcdn.dev/Opo4a.jpg`);
             })
 
-            const thumbnailSize = Math.min(thumbnailImage.width, thumbnailImage.height);
-            const thumbnailX = (thumbnailImage.width - thumbnailSize) / 2;
-            const thumbnailY = (thumbnailImage.height - thumbnailSize) / 2;
-
-            const cornerRadius2 = 5;
-
-            thumbnailCtx.beginPath();
-            thumbnailCtx.moveTo(0 + cornerRadius2, 0);
-            thumbnailCtx.arcTo(thumbnailCanvas.width, 0, thumbnailCanvas.width, thumbnailCanvas.height, cornerRadius2);
-            thumbnailCtx.arcTo(thumbnailCanvas.width, thumbnailCanvas.height, 0, thumbnailCanvas.height, cornerRadius2);
-            thumbnailCtx.arcTo(0, thumbnailCanvas.height, 0, 0, cornerRadius2);
-            thumbnailCtx.arcTo(0, 0, thumbnailCanvas.width, 0, cornerRadius2);
-            thumbnailCtx.closePath();
-            thumbnailCtx.clip();
-
-            thumbnailCtx.drawImage(thumbnailImage, thumbnailX, thumbnailY, thumbnailSize, thumbnailSize, 0, 0, thumbnailCanvas.width, thumbnailCanvas.height);
-
-            ctx.save();
-            ctx.beginPath();
-            ctx.arc(400, 400, 500, 50, Math.PI * 2, true);
-            ctx.closePath();
-            ctx.clip();
-            ctx.drawImage(thumbnailCanvas, 130, 60, 650, 650);
-            ctx.restore();
+            ctx.drawImage(await canvas.loadImage(await cropImage({
+                imagePath: thumbnailImage,
+                borderRadius: 100,
+                cropCenter: true,
+                width: 650,
+                height: 650
+            })), 90, 60)
 
             ctx.font = "bold 150px circular-std, noto-emoji, noto-sans-jp, noto-sans, noto-sans-kr";
-            ctx.fillText(this.name, 1000, 350);
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillText(this.name, 900, 350);
 
-            ctx.font = "bold 100px circular-std, noto-emoji, noto-sans-jp, noto-sans, noto-sans-kr";
-            ctx.fillStyle = "#787878";
-            ctx.fillText(this.author, 1000, 500);
+            ctx.font = "100px circular-std, noto-emoji, noto-sans-jp, noto-sans, noto-sans-kr";
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillText(this.author, 900, 520);
 
 
             return frame.toBuffer("image/png");
