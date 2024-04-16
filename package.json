@@ -1,7 +1,7 @@
 {
   "name": "zydenmusiccard",
   "version": "1.0.0",
-  "description": "Experience your Discord bot's music in a visual format.",
+  "description": "Only For Pappu100code",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -14,7 +14,7 @@
   "keywords": [
     "ZydenMusic"
   ],
-  "author": "ZydenMusic",
+  "author": "Pappu100",
   "license": "GNU",
   "dependencies": {
     "@napi-rs/canvas": "^0.1.51",
