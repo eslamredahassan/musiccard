@@ -25,7 +25,7 @@ registerFont("PlusJakartaSans-Medium.ttf", "medium")
 registerFont("PlusJakartaSans-Regular.ttf", "regular")
 registerFont("PlusJakartaSans-SemiBold.ttf", "semibold")
 
-class musicCard {
+class PappuZydenMusicCard {
     constructor(options) {
         this.name = options?.name ?? null;
         this.author = options?.author ?? null;
@@ -134,4 +134,4 @@ class musicCard {
     }
 }
 
-module.exports = { musicCard };
+module.exports = { PappuZydenMusicCard };

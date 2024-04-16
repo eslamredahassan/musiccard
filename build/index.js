@@ -1,3 +1,3 @@
-const { musicCard } = require("zydenmusiccard/build/structures/musicCard");
+const { PappuZydenMusicCard } = require("zydenmusiccard/build/structures/musicCard");
 
-module.exports = { musicCard };
+module.exports = { PappuZydenMusicCard };
