@@ -29,7 +29,6 @@ class PappuZydenMusicCard {
     constructor(options) {
         this.name = options?.name ?? null;
         this.author = options?.author ?? null;
-        this.duration = options?.duration ?? null; // Added duration
         this.color = options?.color ?? null;
         this.theme = options?.theme ?? null;
         this.brightness = options?.brightness ?? null;
@@ -43,11 +42,6 @@ class PappuZydenMusicCard {
 
     setAuthor(author) {
         this.author = author;
-        return this;
-    }
-
-    setDuration(duration) {  // New setter method
-        this.duration = duration;
         return this;
     }
 
@@ -71,10 +65,10 @@ class PappuZydenMusicCard {
         return this;
     }
 
+
     async build() {
         if (!this.name) throw new Error('Missing name parameter');
         if (!this.author) throw new Error('Missing author parameter');
-        if (!this.duration) throw new Error('Missing duration parameter'); // Ensure duration is set
         if (!this.color) this.setColor('ff0000');
         if (!this.theme) this.setTheme('classic');
         if (!this.brightness) this.setBrightness(0);
@@ -127,16 +121,11 @@ class PappuZydenMusicCard {
 
             ctx.font = "150px medium";
             ctx.fillStyle = "#FFFFFF";
-            ctx.fillText(this.name.toUpperCase(), 900, 340);
+            ctx.fillText(this.name.toUpperCase(), 900, 350);
 
             ctx.font = "100px extralight";
             ctx.fillStyle = "#FFFFFF";
-            ctx.fillText(this.author.toUpperCase(), 900, 500);
-
-            // Display duration below author
-            ctx.font = "80px light"; 
-            ctx.fillStyle = "#FFFFFF";
-            ctx.fillText(this.duration, 900, 600);
+            ctx.fillText(this.author.toUpperCase(), 900, 520);
 
             return frame.toBuffer("image/png");
         } else {
@@ -144,6 +133,5 @@ class PappuZydenMusicCard {
         }
     }
 }
-
 
 module.exports = { PappuZydenMusicCard };
