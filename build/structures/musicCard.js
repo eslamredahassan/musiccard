@@ -3,6 +3,28 @@ const { cropImage } = require("cropify")
 const path = require("path");
 const fs = require("fs");
 
+function registerFont(fontPath, fontName) {
+    const rootFontsPath = path.join(__dirname, "../fonts", fontPath);
+    if (fs.existsSync(rootFontsPath)) {
+        canvas.GlobalFonts.registerFromPath(rootFontsPath, fontName);
+    } else {
+        const srcFontsPath = path.join(__dirname, "../fonts", fontPath);
+        if (fs.existsSync(srcFontsPath)) {
+            canvas.GlobalFonts.registerFromPath(srcFontsPath, fontName);
+        } else {
+            throw new Error(`Font file not found at ${rootFontsPath} or ${srcFontsPath}`);
+        }
+    }
+}
+
+registerFont("PlusJakartaSans-Bold.ttf", "bold")
+registerFont("PlusJakartaSans-ExtraBold.ttf", "extrabold")
+registerFont("PlusJakartaSans-ExtraLight.ttf", "extralight")
+registerFont("PlusJakartaSans-Light.ttf", "light")
+registerFont("PlusJakartaSans-Medium.ttf", "medium")
+registerFont("PlusJakartaSans-Regular.ttf", "regular")
+registerFont("PlusJakartaSans-SemiBold.ttf", "semibold")
+
 class PappuZydenMusicCard {
     constructor(options) {
         this.name = options?.name ?? null;
