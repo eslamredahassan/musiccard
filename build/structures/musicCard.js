@@ -127,7 +127,7 @@ class PappuZydenMusicCard {
 
             ctx.font = "150px medium";
             ctx.fillStyle = "#FFFFFF";
-            ctx.fillText(this.name.toUpperCase(), 900, 350);
+            ctx.fillText(this.name.toUpperCase(), 900, 330);
 
             ctx.font = "100px extralight";
             ctx.fillStyle = "#FFFFFF";
@@ -136,7 +136,7 @@ class PappuZydenMusicCard {
             // Display duration below author
             ctx.font = "80px light"; 
             ctx.fillStyle = "#FFFFFF";
-            ctx.fillText(this.duration, 900, 620);
+            ctx.fillText(this.duration, 900, 630);
 
             return frame.toBuffer("image/png");
         } else {
