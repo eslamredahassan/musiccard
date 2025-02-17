@@ -9,7 +9,6 @@ export declare class PappuZydenMusicCard {
         progress?: number;
         startTime?: string;
         endTime?: string;
-        duration?: string; // <-- Added duration here
     });
 
     public setName(name: string): this;
@@ -21,7 +20,6 @@ export declare class PappuZydenMusicCard {
     public setProgress(progress: number): this;
     public setStartTime(starttime: string): this;
     public setEndTime(endtime: string): this;
-    public setDuration(duration: string): this; // <-- Added this method
 
     public build(): Promise<Buffer>;
 }
