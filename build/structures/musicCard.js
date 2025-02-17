@@ -3,32 +3,11 @@ const { cropImage } = require("cropify")
 const path = require("path");
 const fs = require("fs");
 
-function registerFont(fontPath, fontName) {
-    const rootFontsPath = path.join(__dirname, "../fonts", fontPath);
-    if (fs.existsSync(rootFontsPath)) {
-        canvas.GlobalFonts.registerFromPath(rootFontsPath, fontName);
-    } else {
-        const srcFontsPath = path.join(__dirname, "../fonts", fontPath);
-        if (fs.existsSync(srcFontsPath)) {
-            canvas.GlobalFonts.registerFromPath(srcFontsPath, fontName);
-        } else {
-            throw new Error(`Font file not found at ${rootFontsPath} or ${srcFontsPath}`);
-        }
-    }
-}
-
-registerFont("PlusJakartaSans-Bold.ttf", "bold")
-registerFont("PlusJakartaSans-ExtraBold.ttf", "extrabold")
-registerFont("PlusJakartaSans-ExtraLight.ttf", "extralight")
-registerFont("PlusJakartaSans-Light.ttf", "light")
-registerFont("PlusJakartaSans-Medium.ttf", "medium")
-registerFont("PlusJakartaSans-Regular.ttf", "regular")
-registerFont("PlusJakartaSans-SemiBold.ttf", "semibold")
-
 class PappuZydenMusicCard {
     constructor(options) {
         this.name = options?.name ?? null;
         this.author = options?.author ?? null;
+        this.duration = options?.duration ?? null; // Added duration
         this.color = options?.color ?? null;
         this.theme = options?.theme ?? null;
         this.brightness = options?.brightness ?? null;
@@ -42,6 +21,11 @@ class PappuZydenMusicCard {
 
     setAuthor(author) {
         this.author = author;
+        return this;
+    }
+
+    setDuration(duration) {  // New setter method
+        this.duration = duration;
         return this;
     }
 
@@ -65,10 +49,10 @@ class PappuZydenMusicCard {
         return this;
     }
 
-
     async build() {
         if (!this.name) throw new Error('Missing name parameter');
         if (!this.author) throw new Error('Missing author parameter');
+        if (!this.duration) throw new Error('Missing duration parameter'); // Ensure duration is set
         if (!this.color) this.setColor('ff0000');
         if (!this.theme) this.setTheme('classic');
         if (!this.brightness) this.setBrightness(0);
@@ -127,11 +111,17 @@ class PappuZydenMusicCard {
             ctx.fillStyle = "#FFFFFF";
             ctx.fillText(this.author.toUpperCase(), 900, 520);
 
+            // Display duration below author
+            ctx.font = "80px light"; 
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillText(this.duration, 900, 620);
+
             return frame.toBuffer("image/png");
         } else {
             throw new Error('Invalid theme parameter, must be "classic" or "dynamic"');
         }
     }
 }
+
 
 module.exports = { PappuZydenMusicCard };
