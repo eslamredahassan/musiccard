@@ -1,7 +1,7 @@
 {
-  "name": "zydenmusiccard",
+  "name": "musiccard",
   "version": "1.0.0",
-  "description": "Only For Pappu100code",
+  "description": "Only For Dev.Raven",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -12,17 +12,17 @@
     "res"
   ],
   "keywords": [
-    "ZydenMusic"
+    "MusicCard"
   ],
-  "author": "Pappu100",
+  "author": "Dev.Raven",
   "license": "GNU",
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.51",
+    "@napi-rs/canvas": "^0.1.67",
     "color-thief-node": "^1.0.4",
     "cropify": "^1.0.9"
   },
   "devDependencies": {
-    "@types/node": "^20.11.28",
-    "typescript": "^5.4.2"
+    "@types/node": "^20.13.4",
+    "typescript": "^5.7.3"
   }
 }
